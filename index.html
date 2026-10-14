@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <html lang="th">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>For Ploy Tippanan — Forever Yours</title>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel+Decorative:wght@700&family=Great+Vibes&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Playfair+Display:ital,wght@0,600;1,400&family=Sarabun:wght@300;400;500;600&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Charm:wght@400;700&family=Cinzel+Decorative:wght@700&family=Great+Vibes&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Playfair+Display:ital,wght@0,600;1,400&family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
         /* ========================================================
@@ -24,7 +20,7 @@
             --gold-glow: #e9b642;
             --rose-gold: #f8a5c2;
             --blush-pink: #ffd3e2;
-            --card-glass: rgba(18, 7, 24, 0.58);
+            --card-glass: rgba(18, 7, 24, 0.62);
             --border-glass: rgba(255, 255, 255, 0.16);
             --border-glow: rgba(255, 60, 110, 0.4);
             --bg-deep: #07020d;
@@ -37,28 +33,32 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        html,
-        body {
+        html, body {
             width: 100%;
-            height: 100%;
-            overflow: hidden;
+            min-height: 100%;
+            min-height: 100dvh;
             background-color: var(--bg-deep);
-            font-family: 'Montserrat', 'Sarabun', sans-serif;
+            font-family: 'Montserrat', 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
             color: #ffffff;
             user-select: none;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            overflow-y: auto;
+            word-break: keep-all;
+            overflow-wrap: break-word;
         }
 
-        /* Animated Deep Cosmic Aurora Background */
+        /* Ambient Cosmic Background */
         body {
             position: relative;
             background: radial-gradient(circle at 50% 20%, #240b2e 0%, #0d0314 60%, #05010a 100%);
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
         }
 
-        /* Ambient glowing background blobs */
+        /* Glowing Aurora Blobs */
         .ambient-glow {
             position: fixed;
             border-radius: 50%;
@@ -104,20 +104,9 @@
         }
 
         @keyframes pulseAura {
-            0% {
-                transform: scale(0.9) translate(0, 0);
-                opacity: 0.28;
-            }
-
-            50% {
-                transform: scale(1.15) translate(30px, -20px);
-                opacity: 0.42;
-            }
-
-            100% {
-                transform: scale(1) translate(-20px, 30px);
-                opacity: 0.32;
-            }
+            0% { transform: scale(0.9) translate(0, 0); opacity: 0.28; }
+            50% { transform: scale(1.15) translate(30px, -20px); opacity: 0.42; }
+            100% { transform: scale(1) translate(-20px, 30px); opacity: 0.32; }
         }
 
         /* Background Canvas (Stars, constellation, petals, dust) */
@@ -131,31 +120,38 @@
             z-index: 1;
         }
 
-        /* Main Viewport Container */
+        /* Main Viewport Stage: Fully Symmetric & Responsive */
         .stage {
             position: relative;
             z-index: 10;
             width: 100%;
-            height: 100%;
+            min-height: 100dvh;
             display: flex;
             justify-content: center;
             align-items: center;
             perspective: 1200px;
-            padding: 20px;
+            padding-top: max(80px, calc(70px + env(safe-area-inset-top)));
+            padding-bottom: max(95px, calc(80px + env(safe-area-inset-bottom)));
+            padding-left: max(18px, env(safe-area-inset-left));
+            padding-right: max(18px, env(safe-area-inset-right));
+            box-sizing: border-box;
         }
 
-        /* Top Brand & Sound Pill */
+        /* Top Bar: Brand Pill & Audio Switcher */
         .top-bar {
             position: fixed;
-            top: 20px;
+            top: max(16px, env(safe-area-inset-top));
             left: 0;
             width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 25px;
+            padding: 0 max(20px, env(safe-area-inset-left));
             z-index: 100;
             pointer-events: auto;
+            max-width: 1100px;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .brand-pill {
@@ -163,16 +159,16 @@
             align-items: center;
             gap: 8px;
             padding: 8px 18px;
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.07);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 30px;
             font-size: 0.85rem;
             color: var(--blush-pink);
             letter-spacing: 2px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-            transition: all 0.3s;
+            white-space: nowrap;
         }
 
         .brand-pill .sparkle-icon {
@@ -181,13 +177,8 @@
         }
 
         @keyframes rotateSparkle {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(360deg);
-            }
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .audio-pill {
@@ -205,6 +196,7 @@
             font-size: 0.82rem;
             box-shadow: 0 8px 24px rgba(255, 42, 109, 0.2);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            white-space: nowrap;
         }
 
         .audio-pill:hover {
@@ -228,56 +220,43 @@
             transition: height 0.2s;
         }
 
-        .audio-pill.playing .eq-bar:nth-child(1) {
-            animation: eqBounce 1s infinite 0.1s;
-        }
-
-        .audio-pill.playing .eq-bar:nth-child(2) {
-            animation: eqBounce 0.8s infinite 0.25s;
-        }
-
-        .audio-pill.playing .eq-bar:nth-child(3) {
-            animation: eqBounce 1.2s infinite 0.05s;
-        }
-
-        .audio-pill.playing .eq-bar:nth-child(4) {
-            animation: eqBounce 0.9s infinite 0.35s;
-        }
+        .audio-pill.playing .eq-bar:nth-child(1) { animation: eqBounce 1s infinite 0.1s; }
+        .audio-pill.playing .eq-bar:nth-child(2) { animation: eqBounce 0.8s infinite 0.25s; }
+        .audio-pill.playing .eq-bar:nth-child(3) { animation: eqBounce 1.2s infinite 0.05s; }
+        .audio-pill.playing .eq-bar:nth-child(4) { animation: eqBounce 0.9s infinite 0.35s; }
 
         @keyframes eqBounce {
-
-            0%,
-            100% {
-                height: 4px;
-            }
-
-            50% {
-                height: 14px;
-                background: var(--gold-accent);
-            }
+            0%, 100% { height: 4px; }
+            50% { height: 14px; background: var(--gold-accent); }
         }
 
         /* ========================================================
-           SECTIONS / PAGES (SMOOTH TRANSITIONS)
+           SCENE CONTAINERS (Symmetric Flow Layout)
            ======================================================== */
         .scene-container {
-            position: absolute;
             width: 100%;
-            max-width: 680px;
-            display: flex;
+            max-width: 580px;
+            margin: 0 auto;
+            display: none;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             opacity: 0;
-            pointer-events: none;
-            transform: scale(0.92) translateY(20px);
-            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: scale(0.96) translateY(12px);
+            transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .scene-container.active {
+            display: flex;
             opacity: 1;
             pointer-events: auto;
             transform: scale(1) translateY(0);
+        }
+
+        /* Helper for unbreakable cohesive phrases */
+        .nobr {
+            white-space: nowrap;
+            display: inline-block;
         }
 
         /* ========================================================
@@ -294,14 +273,14 @@
         .luxury-card {
             position: relative;
             width: 100%;
-            max-width: 540px;
-            padding: 3.5rem 2.8rem 3rem;
+            max-width: 560px;
+            padding: 3.2rem 2.6rem 2.8rem;
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
-            background: linear-gradient(145deg, rgba(30, 10, 38, 0.7), rgba(12, 4, 18, 0.85));
+            background: linear-gradient(145deg, rgba(30, 10, 38, 0.72), rgba(12, 4, 18, 0.88));
             border-radius: 36px;
             border: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow:
+            box-shadow: 
                 0 30px 80px rgba(0, 0, 0, 0.7),
                 0 0 50px rgba(255, 42, 109, 0.18),
                 inset 0 1px 1px rgba(255, 255, 255, 0.25),
@@ -310,19 +289,14 @@
             transform: translateZ(40px);
             animation: cardFloatAnim 5s ease-in-out infinite alternate;
             overflow: hidden;
+            box-sizing: border-box;
         }
 
         @keyframes cardFloatAnim {
-            0% {
-                transform: translateY(0px) translateZ(40px);
-            }
-
-            100% {
-                transform: translateY(-12px) translateZ(40px);
-            }
+            0% { transform: translateY(0px) translateZ(40px); }
+            100% { transform: translateY(-10px) translateZ(40px); }
         }
 
-        /* Card Shimmer Border highlight */
         .luxury-card::before {
             content: '';
             position: absolute;
@@ -335,7 +309,6 @@
             opacity: 0.6;
         }
 
-        /* Top Royal Crest */
         .card-crest {
             display: inline-flex;
             align-items: center;
@@ -345,90 +318,130 @@
             border-radius: 50%;
             background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 42, 109, 0.2));
             border: 1px solid rgba(255, 215, 0, 0.4);
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
             font-size: 1.4rem;
         }
 
         .prefix-text {
-            font-size: clamp(0.9rem, 2.5vw, 1.15rem);
+            font-size: clamp(0.85rem, 2.2vw, 1.1rem);
             color: var(--blush-pink);
-            letter-spacing: 6px;
+            letter-spacing: 5px;
             text-transform: uppercase;
             font-weight: 300;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             opacity: 0.95;
             text-shadow: 0 0 12px rgba(255, 179, 198, 0.5);
+            white-space: nowrap;
         }
 
-        /* Glowing Name in Great Vibes */
+        /* Beloved Name: "Ploy ธิปนรรจ์" Perfectly Symmetric & Scaled */
         .beloved-name {
-            font-family: 'Great Vibes', cursive;
-            font-size: clamp(3.4rem, 9.5vw, 6.2rem);
-            line-height: 1.1;
-            margin: 5px 0 15px;
+            font-size: clamp(2.2rem, 7.5vw, 4.6rem);
+            line-height: 1.2;
+            margin: 6px 0 16px;
             cursor: pointer;
             background: linear-gradient(135deg, #ffffff 0%, #ffe3ec 40%, #ff8da8 70%, #ffb3c6 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow:
+            text-shadow: 
                 0 0 25px rgba(255, 42, 109, 0.8),
                 0 0 60px rgba(255, 42, 109, 0.5);
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s;
-            display: inline-block;
+            display: inline-flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 12px;
+            white-space: nowrap;
+            max-width: 100%;
+        }
+
+        .beloved-name .name-en {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        .beloved-name .name-th {
+            font-family: 'Charm', cursive, 'Sarabun', sans-serif;
+            font-size: 0.72em;
+            font-weight: 700;
+            letter-spacing: 1px;
         }
 
         .beloved-name:hover {
-            transform: scale(1.04) translateY(-3px);
+            transform: scale(1.03) translateY(-2px);
             filter: drop-shadow(0 0 30px #ff0055);
         }
 
-        /* Signature */
         .signature-text {
             font-size: clamp(0.85rem, 2vw, 1.05rem);
             color: var(--rose-gold);
             font-style: italic;
             font-weight: 300;
-            letter-spacing: 3px;
-            margin-top: 10px;
-            margin-bottom: 25px;
+            letter-spacing: 2.5px;
+            margin-top: 6px;
+            margin-bottom: 22px;
             opacity: 0.9;
+            white-space: nowrap;
         }
 
-        /* Love Days Pill */
+        /* Love Days Pill: Symmetric multi-device wrapper */
         .love-counter-pill {
             display: inline-flex;
+            flex-direction: column;
             align-items: center;
-            gap: 8px;
-            padding: 8px 20px;
+            gap: 5px;
+            padding: 10px 22px;
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            font-size: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 22px;
+            font-size: 0.88rem;
             color: #ffd1dc;
-            margin-bottom: 25px;
+            margin-bottom: 24px;
             backdrop-filter: blur(8px);
+            max-width: 100%;
         }
 
-        .love-counter-pill strong {
+        .love-counter-pill .pill-title {
+            color: var(--blush-pink);
+            font-size: 0.82rem;
+            letter-spacing: 1px;
+            opacity: 0.95;
+            white-space: nowrap;
+        }
+
+        .love-counter-pill .pill-time-wrap {
+            display: inline-flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
             color: var(--gold-accent);
             font-weight: 600;
+            font-size: 0.95rem;
+            text-align: center;
         }
 
-        /* Pulse Heart Button */
+        .love-counter-pill .time-badge {
+            background: rgba(255, 215, 0, 0.12);
+            padding: 2px 8px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 215, 0, 0.25);
+            white-space: nowrap;
+        }
+
         .heart-igniter-btn {
             position: relative;
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            width: 76px;
-            height: 76px;
+            width: 74px;
+            height: 74px;
             border-radius: 50%;
             background: linear-gradient(135deg, #ff1a6c, #e6004c);
             color: #ffffff;
             font-size: 2.2rem;
             cursor: pointer;
-            box-shadow:
+            box-shadow: 
                 0 0 25px rgba(255, 0, 76, 0.7),
                 0 10px 30px rgba(0, 0, 0, 0.5);
             border: 2px solid rgba(255, 255, 255, 0.3);
@@ -437,7 +450,7 @@
         }
 
         .heart-igniter-btn:hover {
-            transform: scale(1.15);
+            transform: scale(1.12);
             box-shadow: 0 0 45px rgba(255, 0, 76, 0.9), 0 0 70px rgba(255, 215, 0, 0.4);
         }
 
@@ -446,40 +459,29 @@
         }
 
         @keyframes heartPulseAnim {
-
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            20% {
-                transform: scale(1.18);
-            }
-
-            35% {
-                transform: scale(1.05);
-            }
-
-            50% {
-                transform: scale(1.18);
-            }
+            0%, 100% { transform: scale(1); }
+            20% { transform: scale(1.16); }
+            35% { transform: scale(1.04); }
+            50% { transform: scale(1.16); }
         }
 
-        /* Whisper Fortune Card */
         .whisper-box {
-            margin-top: 25px;
+            margin-top: 24px;
             padding: 12px 18px;
             background: rgba(255, 255, 255, 0.04);
-            border: 1px dashed rgba(255, 179, 198, 0.3);
+            border: 1px dashed rgba(255, 179, 198, 0.35);
             border-radius: 16px;
             font-size: 0.92rem;
             color: var(--blush-pink);
             cursor: pointer;
             transition: all 0.3s;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            max-width: 100%;
+            line-height: 1.5;
+            text-align: center;
         }
 
         .whisper-box:hover {
@@ -493,15 +495,16 @@
            ======================================================== */
         .constellation-wrapper {
             width: 100%;
-            max-width: 600px;
+            max-width: 580px;
             text-align: center;
-            padding: 2.5rem 2rem;
+            padding: 2.8rem 2.2rem 2.5rem;
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
-            background: rgba(12, 5, 20, 0.75);
+            background: rgba(14, 5, 22, 0.78);
             border-radius: 36px;
-            border: 1px solid rgba(255, 215, 0, 0.25);
+            border: 1px solid rgba(255, 215, 0, 0.28);
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 50px rgba(255, 215, 0, 0.15);
+            box-sizing: border-box;
         }
 
         .constellation-title {
@@ -510,23 +513,25 @@
             color: var(--gold-accent);
             text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
             margin-bottom: 10px;
+            white-space: nowrap;
         }
 
         .constellation-subtitle {
             font-size: 0.95rem;
             color: var(--blush-pink);
             font-weight: 300;
-            line-height: 1.6;
-            margin-bottom: 25px;
+            line-height: 1.65;
+            margin-bottom: 22px;
+            text-align: center;
         }
 
         .sky-canvas-box {
             position: relative;
             width: 100%;
-            height: 280px;
+            height: 270px;
             background: radial-gradient(circle at center, rgba(35, 12, 50, 0.6) 0%, rgba(5, 2, 10, 0.9) 100%);
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 22px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
             overflow: hidden;
             display: flex;
             align-items: center;
@@ -544,12 +549,13 @@
             display: flex;
             justify-content: center;
             gap: 12px;
-            margin-top: 20px;
+            margin-top: 22px;
             flex-wrap: wrap;
+            width: 100%;
         }
 
         .action-gold-btn {
-            padding: 10px 24px;
+            padding: 10px 22px;
             border-radius: 25px;
             background: linear-gradient(135deg, #f9d976 0%, #e9b642 100%);
             color: #2b0b18;
@@ -561,11 +567,13 @@
             transition: all 0.3s;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
+            white-space: nowrap;
         }
 
         .action-gold-btn:hover {
-            transform: translateY(-2px) scale(1.03);
+            transform: translateY(-2px) scale(1.02);
             box-shadow: 0 10px 30px rgba(233, 182, 66, 0.55);
         }
 
@@ -575,14 +583,15 @@
         .bear-quest-card {
             width: 100%;
             max-width: 580px;
-            padding: 2.8rem 2.2rem;
+            padding: 2.8rem 2.2rem 2.4rem;
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
-            background: rgba(22, 8, 30, 0.75);
+            background: rgba(22, 8, 30, 0.78);
             border-radius: 36px;
             border: 1px solid rgba(255, 105, 180, 0.3);
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 50px rgba(255, 105, 180, 0.2);
             text-align: center;
+            box-sizing: border-box;
         }
 
         .bear-quest-header {
@@ -590,10 +599,19 @@
             font-size: clamp(1.6rem, 4.5vw, 2.2rem);
             color: #ffffff;
             margin-bottom: 8px;
+            white-space: nowrap;
+        }
+
+        .bear-counter-display {
+            font-size: 1.1rem;
+            color: var(--blush-pink);
+            font-weight: 500;
+            margin-bottom: 12px;
+            white-space: nowrap;
         }
 
         .bear-progress-bar-wrap {
-            margin: 20px auto;
+            margin: 15px auto;
             width: 100%;
             max-width: 380px;
             height: 12px;
@@ -613,22 +631,15 @@
             box-shadow: 0 0 15px #ff2a6d;
         }
 
-        .bear-counter-display {
-            font-size: 1.1rem;
-            color: var(--blush-pink);
-            font-weight: 500;
-            margin-bottom: 15px;
-        }
-
         .bear-status-text {
             font-size: 0.95rem;
             color: #ffcad4;
             min-height: 24px;
-            margin-bottom: 20px;
-            line-height: 1.5;
+            margin-bottom: 22px;
+            line-height: 1.6;
+            text-align: center;
         }
 
-        /* Floating Quest Bears in the wild */
         .quest-bear {
             position: fixed;
             font-size: 2.8rem;
@@ -645,45 +656,25 @@
         }
 
         @keyframes bearFloatSpawn {
-            0% {
-                transform: scale(0) translateY(40px) rotate(-30deg);
-                opacity: 0;
-            }
-
-            12% {
-                transform: scale(1.1) translateY(0) rotate(5deg);
-                opacity: 1;
-            }
-
-            80% {
-                transform: scale(1) translateY(-10px) rotate(-5deg);
-                opacity: 1;
-            }
-
-            92% {
-                transform: scale(1.2) translateY(-20px) rotate(20deg);
-                opacity: 0.9;
-            }
-
-            100% {
-                transform: scale(0) translateY(-40px) rotate(45deg);
-                opacity: 0;
-            }
+            0% { transform: scale(0) translateY(40px) rotate(-30deg); opacity: 0; }
+            12% { transform: scale(1.1) translateY(0) rotate(5deg); opacity: 1; }
+            80% { transform: scale(1) translateY(-10px) rotate(-5deg); opacity: 1; }
+            92% { transform: scale(1.2) translateY(-20px) rotate(20deg); opacity: 0.9; }
+            100% { transform: scale(0) translateY(-40px) rotate(45deg); opacity: 0; }
         }
 
-        /* Bear Compliment Toast */
         .bear-toast {
             position: fixed;
-            top: 85px;
+            top: max(80px, calc(70px + env(safe-area-inset-top)));
             left: 50%;
             transform: translateX(-50%) translateY(-20px);
-            padding: 12px 26px;
-            background: rgba(30, 8, 38, 0.92);
+            padding: 12px 24px;
+            background: rgba(30, 8, 38, 0.94);
             border: 1px solid var(--primary-rose);
             box-shadow: 0 10px 30px rgba(255, 42, 109, 0.4);
             border-radius: 30px;
             color: #ffffff;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             z-index: 300;
             backdrop-filter: blur(15px);
             opacity: 0;
@@ -692,6 +683,8 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            max-width: 90vw;
+            text-align: center;
         }
 
         .bear-toast.show {
@@ -708,17 +701,18 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            box-sizing: border-box;
         }
 
-        /* 3D Envelope Container */
         .envelope-container {
             position: relative;
             width: 100%;
             max-width: 480px;
-            height: 310px;
+            height: 290px;
             cursor: pointer;
             transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             perspective: 1000px;
+            margin: 0 auto;
         }
 
         .envelope-container:hover {
@@ -730,9 +724,9 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(135deg, #2b0b1e 0%, #170410 100%);
-            border-radius: 20px;
+            border-radius: 24px;
             border: 1px solid rgba(255, 215, 0, 0.35);
-            box-shadow:
+            box-shadow: 
                 0 25px 60px rgba(0, 0, 0, 0.8),
                 0 0 35px rgba(255, 42, 109, 0.3);
             display: flex;
@@ -742,6 +736,7 @@
             padding: 30px;
             text-align: center;
             overflow: hidden;
+            box-sizing: border-box;
         }
 
         .envelope-body::before {
@@ -756,8 +751,8 @@
         }
 
         .wax-seal {
-            width: 80px;
-            height: 80px;
+            width: 76px;
+            height: 76px;
             border-radius: 50%;
             background: radial-gradient(circle, #e60039 0%, #8a0022 100%);
             border: 3px solid #ff4d79;
@@ -768,26 +763,23 @@
             font-family: 'Cinzel Decorative', cursive;
             font-size: 1.8rem;
             color: #ffd6e0;
-            margin-bottom: 15px;
+            margin-bottom: 14px;
             transition: all 0.4s;
             animation: sealGlow 2.5s infinite alternate;
         }
 
         @keyframes sealGlow {
-            0% {
-                box-shadow: 0 0 20px rgba(230, 0, 57, 0.6);
-            }
-
-            100% {
-                box-shadow: 0 0 40px rgba(230, 0, 57, 0.95), 0 0 60px rgba(255, 215, 0, 0.4);
-            }
+            0% { box-shadow: 0 0 20px rgba(230, 0, 57, 0.6); }
+            100% { box-shadow: 0 0 40px rgba(230, 0, 57, 0.95), 0 0 60px rgba(255, 215, 0, 0.4); }
         }
 
         .envelope-to {
-            font-family: 'Great Vibes', cursive;
-            font-size: 2.4rem;
+            font-family: 'Charm', 'Great Vibes', cursive;
+            font-size: 2.2rem;
+            font-weight: 700;
             color: var(--blush-pink);
             text-shadow: 0 0 15px rgba(255, 42, 109, 0.6);
+            white-space: nowrap;
         }
 
         .envelope-hint {
@@ -796,64 +788,64 @@
             letter-spacing: 2px;
             margin-top: 8px;
             text-transform: uppercase;
+            white-space: nowrap;
         }
 
         /* Unfolded Romantic Paper Letter */
         .paper-letter {
             display: none;
             width: 100%;
-            max-width: 540px;
-            background: linear-gradient(145deg, rgba(28, 9, 32, 0.92), rgba(16, 4, 20, 0.96));
+            max-width: 560px;
+            background: linear-gradient(145deg, rgba(28, 9, 32, 0.94), rgba(16, 4, 20, 0.98));
             border-radius: 28px;
-            padding: 3.2rem 2.6rem;
+            padding: 3rem 2.4rem 2.6rem;
             border: 1px solid rgba(255, 215, 0, 0.35);
-            box-shadow:
+            box-shadow: 
                 0 30px 80px rgba(0, 0, 0, 0.8),
                 0 0 50px rgba(255, 42, 109, 0.3);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
             text-align: center;
             animation: letterSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            box-sizing: border-box;
         }
 
         @keyframes letterSlideUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px) scale(0.95);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
+            from { opacity: 0; transform: translateY(40px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .letter-salutation {
-            font-family: 'Great Vibes', cursive;
-            font-size: 3rem;
+            font-family: 'Charm', cursive;
+            font-size: clamp(2rem, 5.5vw, 2.8rem);
+            font-weight: 700;
             color: #ff2a6d;
             text-shadow: 0 0 15px rgba(255, 42, 109, 0.5);
-            margin-bottom: 15px;
+            margin-bottom: 16px;
+            white-space: nowrap;
         }
 
         .letter-content {
             font-size: 1.05rem;
-            line-height: 1.9;
+            line-height: 1.85;
             color: #ffe6ee;
             font-weight: 300;
             text-align: left;
-            margin-bottom: 25px;
+            margin-bottom: 24px;
             white-space: pre-line;
             border-left: 2px solid rgba(255, 42, 109, 0.4);
             padding-left: 18px;
+            font-family: 'Sarabun', sans-serif;
         }
 
         .letter-question {
             font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
+            font-size: clamp(1.1rem, 3.2vw, 1.35rem);
             color: var(--gold-accent);
             margin: 20px 0 20px;
             font-style: italic;
+            text-align: center;
+            line-height: 1.5;
         }
 
         .proposal-choice-row {
@@ -862,29 +854,32 @@
             align-items: center;
             gap: 16px;
             position: relative;
-            min-height: 60px;
+            min-height: 56px;
+            width: 100%;
+            flex-wrap: wrap;
         }
 
         .btn-yes {
-            padding: 12px 34px;
+            padding: 12px 32px;
             border-radius: 30px;
             background: linear-gradient(135deg, #ff0055, #ff2a6d);
             color: white;
-            font-size: 1.05rem;
+            font-size: 1.02rem;
             font-weight: 600;
             border: none;
             cursor: pointer;
             box-shadow: 0 8px 25px rgba(255, 0, 85, 0.5);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            white-space: nowrap;
         }
 
         .btn-yes:hover {
-            transform: scale(1.08);
+            transform: scale(1.05);
             box-shadow: 0 10px 35px rgba(255, 0, 85, 0.8);
         }
 
         .btn-playful-no {
-            padding: 12px 28px;
+            padding: 12px 26px;
             border-radius: 30px;
             background: rgba(255, 255, 255, 0.08);
             color: #ffb3c6;
@@ -892,12 +887,11 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             cursor: pointer;
             transition: all 0.2s ease-out;
+            white-space: nowrap;
             position: relative;
         }
 
-        /* ========================================================
-           GRAND CELEBRATION MODAL (AFTER SAYING YES)
-           ======================================================== */
+        /* Celebration Modal */
         .celebration-overlay {
             position: fixed;
             top: 0;
@@ -915,6 +909,7 @@
             pointer-events: none;
             transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
             padding: 20px;
+            box-sizing: border-box;
         }
 
         .celebration-overlay.active {
@@ -926,13 +921,14 @@
             background: linear-gradient(145deg, #2a0a25 0%, #140316 100%);
             border-radius: 35px;
             border: 2px solid rgba(255, 215, 0, 0.5);
-            padding: 3.5rem 2.5rem;
+            padding: 3.2rem 2.4rem;
             max-width: 520px;
             width: 100%;
             text-align: center;
             box-shadow: 0 30px 100px rgba(255, 0, 85, 0.4), 0 0 60px rgba(255, 215, 0, 0.3);
-            transform: scale(0.85);
+            transform: scale(0.9);
             transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            box-sizing: border-box;
         }
 
         .celebration-overlay.active .celebration-card {
@@ -940,75 +936,76 @@
         }
 
         .celebration-ring {
-            font-size: 4rem;
-            margin-bottom: 10px;
+            font-size: 3.8rem;
+            margin-bottom: 8px;
             display: inline-block;
             animation: ringBounce 1.5s infinite alternate;
         }
 
         @keyframes ringBounce {
-            0% {
-                transform: translateY(0) scale(1);
-            }
-
-            100% {
-                transform: translateY(-12px) scale(1.15) rotate(10deg);
-            }
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-12px) scale(1.15) rotate(10deg); }
         }
 
         .celebration-title {
             font-family: 'Great Vibes', cursive;
-            font-size: clamp(2.8rem, 7vw, 4.2rem);
+            font-size: clamp(2.6rem, 7vw, 4rem);
             color: #ffffff;
             text-shadow: 0 0 20px #ff2a6d, 0 0 40px #ff0055;
-            margin-bottom: 15px;
+            margin-bottom: 14px;
+            white-space: nowrap;
         }
 
         .celebration-text {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--blush-pink);
             line-height: 1.8;
             font-weight: 300;
-            margin-bottom: 25px;
+            margin-bottom: 24px;
+            text-align: center;
         }
 
-        /* ========================================================
-           LUXURY BOTTOM FLOATING DOCK (MODE SWITCHER)
-           ======================================================== */
+        /* Bottom Floating Luxury Dock: Centered & Balanced without overflowing */
         .bottom-dock {
             position: fixed;
-            bottom: 25px;
+            bottom: max(20px, calc(14px + env(safe-area-inset-bottom)));
             left: 50%;
             transform: translateX(-50%);
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 10px;
-            padding: 8px 12px;
-            background: rgba(22, 8, 30, 0.65);
+            justify-content: center;
+            gap: 6px;
+            padding: 6px 10px;
+            background: rgba(22, 8, 30, 0.78);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.16);
+            border: 1px solid rgba(255, 255, 255, 0.18);
             border-radius: 40px;
-            box-shadow:
+            box-shadow: 
                 0 20px 50px rgba(0, 0, 0, 0.7),
                 0 0 25px rgba(255, 42, 109, 0.2);
             z-index: 100;
-            max-width: 95vw;
+            width: max-content;
+            max-width: calc(100vw - 24px);
+            box-sizing: border-box;
+            overflow: hidden;
         }
 
         .dock-item {
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 10px 18px;
+            justify-content: center;
+            gap: 6px;
+            padding: 8px 14px;
             border-radius: 30px;
             cursor: pointer;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             color: #ffd6e0;
             background: transparent;
             border: none;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             white-space: nowrap;
+            flex-shrink: 0;
         }
 
         .dock-item .dock-icon {
@@ -1023,40 +1020,231 @@
         }
 
         .dock-item:hover .dock-icon {
-            transform: scale(1.2);
+            transform: scale(1.15);
         }
 
         .dock-item.active {
-            background: linear-gradient(135deg, rgba(255, 42, 109, 0.85), rgba(200, 10, 80, 0.85));
+            background: linear-gradient(135deg, rgba(255, 42, 109, 0.88), rgba(200, 10, 80, 0.88));
             color: #ffffff;
             font-weight: 500;
             box-shadow: 0 4px 20px rgba(255, 42, 109, 0.5);
         }
 
-        /* Responsive Mobile Styles */
-        @media (max-width: 640px) {
-            .luxury-card {
-                padding: 2.8rem 1.6rem 2.2rem;
-                border-radius: 28px;
+        /* ========================================================
+           RESPONSIVE RULES: TABLET (IPAD) & MOBILE SPECIFICS
+           ======================================================== */
+
+        /* iPad / Tablet (768px to 1024px) */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .stage {
+                padding-top: max(85px, calc(75px + env(safe-area-inset-top)));
+                padding-bottom: max(100px, calc(85px + env(safe-area-inset-bottom)));
+            }
+
+            .luxury-card, .constellation-wrapper, .bear-quest-card, .paper-letter {
+                max-width: 520px;
+                padding: 2.8rem 2.2rem 2.4rem;
             }
 
             .beloved-name {
-                font-size: 3.5rem;
-            }
-
-            .prefix-text {
-                letter-spacing: 4px;
+                font-size: clamp(2.6rem, 5.5vw, 3.8rem);
             }
 
             .bottom-dock {
-                bottom: 15px;
+                bottom: 22px;
                 padding: 6px 8px;
-                gap: 4px;
+                gap: 5px;
             }
 
             .dock-item {
                 padding: 8px 12px;
+                font-size: 0.8rem;
+                gap: 5px;
+            }
+        }
+
+        /* Mobile Phones (<= 767px) */
+        @media (max-width: 767px) {
+            .stage {
+                padding-top: max(68px, calc(58px + env(safe-area-inset-top)));
+                padding-bottom: max(85px, calc(72px + env(safe-area-inset-bottom)));
+                padding-left: 14px;
+                padding-right: 14px;
+            }
+
+            .top-bar {
+                top: max(12px, env(safe-area-inset-top));
+                padding: 0 14px;
+            }
+
+            .brand-pill {
+                padding: 6px 14px;
                 font-size: 0.78rem;
+                letter-spacing: 1.5px;
+            }
+
+            .audio-pill {
+                padding: 6px 14px;
+                font-size: 0.78rem;
+            }
+
+            .luxury-card, .constellation-wrapper, .bear-quest-card, .paper-letter {
+                padding: 2.2rem 1.3rem 2rem;
+                border-radius: 26px;
+                max-width: 100%;
+            }
+
+            .beloved-name {
+                font-size: clamp(1.9rem, 7vw, 3rem);
+                gap: 8px;
+            }
+
+            .prefix-text {
+                font-size: 0.82rem;
+                letter-spacing: 3.5px;
+                margin-bottom: 8px;
+            }
+
+            .signature-text {
+                font-size: 0.85rem;
+                letter-spacing: 2px;
+                margin-top: 6px;
+                margin-bottom: 18px;
+            }
+
+            .love-counter-pill {
+                padding: 8px 14px;
+                font-size: 0.82rem;
+                width: 100%;
+                max-width: 340px;
+            }
+
+            .love-counter-pill .pill-time-wrap {
+                font-size: 0.88rem;
+            }
+
+            .whisper-box {
+                font-size: 0.85rem;
+                padding: 10px 14px;
+            }
+
+            .heart-igniter-btn {
+                width: 68px;
+                height: 68px;
+                font-size: 1.9rem;
+            }
+
+            .sky-canvas-box {
+                height: 230px;
+                border-radius: 18px;
+            }
+
+            .constellation-title {
+                font-size: 1.4rem;
+            }
+
+            .constellation-subtitle {
+                font-size: 0.88rem;
+            }
+
+            .constellation-btn-group {
+                flex-direction: column;
+                width: 100%;
+                gap: 10px;
+            }
+
+            .constellation-btn-group .action-gold-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .bear-quest-card {
+                padding: 2.2rem 1.2rem 1.8rem;
+            }
+
+            .bear-quest-header {
+                font-size: 1.55rem;
+            }
+
+            .envelope-container {
+                max-width: 320px;
+                height: 230px;
+            }
+
+            .wax-seal {
+                width: 64px;
+                height: 64px;
+                font-size: 1.5rem;
+            }
+
+            .envelope-to {
+                font-size: 1.7rem;
+            }
+
+            .paper-letter {
+                padding: 2rem 1.2rem;
+            }
+
+            .letter-salutation {
+                font-size: 2rem;
+                margin-bottom: 12px;
+            }
+
+            .letter-content {
+                font-size: 0.94rem;
+                line-height: 1.75;
+                padding-left: 12px;
+            }
+
+            .letter-question {
+                font-size: 1.08rem;
+                margin: 16px 0;
+            }
+
+            .proposal-choice-row {
+                flex-direction: column;
+                gap: 12px;
+                width: 100%;
+            }
+
+            .btn-yes {
+                width: 100%;
+                padding: 12px 20px;
+                font-size: 0.98rem;
+            }
+
+            .btn-playful-no {
+                width: auto;
+                padding: 10px 24px;
+                font-size: 0.9rem;
+            }
+
+            .celebration-card {
+                padding: 2.4rem 1.3rem;
+                border-radius: 26px;
+            }
+
+            .celebration-title {
+                font-size: 2.4rem;
+            }
+
+            .celebration-text {
+                font-size: 0.95rem;
+                line-height: 1.7;
+            }
+
+            .bottom-dock {
+                bottom: max(12px, env(safe-area-inset-bottom));
+                padding: 5px 6px;
+                gap: 3px;
+                width: max-content;
+                max-width: calc(100vw - 20px);
+            }
+
+            .dock-item {
+                padding: 7px 10px;
+                font-size: 0.75rem;
+                gap: 4px;
             }
 
             .dock-item span.dock-label {
@@ -1065,25 +1253,6 @@
 
             .dock-item.active span.dock-label {
                 display: inline;
-            }
-
-            .top-bar {
-                padding: 0 15px;
-                top: 15px;
-            }
-
-            .brand-pill {
-                padding: 6px 12px;
-                font-size: 0.78rem;
-            }
-
-            .audio-pill {
-                padding: 6px 12px;
-                font-size: 0.78rem;
-            }
-
-            .envelope-container {
-                height: 270px;
             }
         }
 
@@ -1099,15 +1268,8 @@
         }
 
         @keyframes explodeParticle {
-            0% {
-                transform: translate(0, 0) scale(1) rotate(0deg);
-                opacity: 1;
-            }
-
-            100% {
-                transform: translate(var(--tx), var(--ty)) scale(var(--s)) rotate(var(--r));
-                opacity: 0;
-            }
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(var(--s)) rotate(var(--r)); opacity: 0; }
         }
 
         .cursor-trail {
@@ -1117,15 +1279,8 @@
         }
 
         @keyframes trailFade {
-            0% {
-                transform: scale(1) translateY(0);
-                opacity: 0.9;
-            }
-
-            100% {
-                transform: scale(0.2) translateY(18px) rotate(45deg);
-                opacity: 0;
-            }
+            0% { transform: scale(1) translateY(0); opacity: 0.9; }
+            100% { transform: scale(0.2) translateY(18px) rotate(45deg); opacity: 0; }
         }
 
         .shockwave-ripple {
@@ -1138,23 +1293,8 @@
         }
 
         @keyframes rippleShock {
-            0% {
-                width: 0;
-                height: 0;
-                top: var(--y);
-                left: var(--x);
-                opacity: 1;
-                border-width: 3px;
-            }
-
-            100% {
-                width: 280px;
-                height: 280px;
-                top: calc(var(--y) - 140px);
-                left: calc(var(--x) - 140px);
-                opacity: 0;
-                border-width: 1px;
-            }
+            0% { width: 0; height: 0; top: var(--y); left: var(--x); opacity: 1; border-width: 3px; }
+            100% { width: 280px; height: 280px; top: calc(var(--y) - 140px); left: calc(var(--x) - 140px); opacity: 0; border-width: 1px; }
         }
     </style>
 </head>
@@ -1169,7 +1309,7 @@
     <!-- FX Canvas: Stars, Stardust, Romantic Petals -->
     <canvas id="fx-canvas"></canvas>
 
-    <!-- Top Bar: Brand Crest & Procedural Music Box -->
+    <!-- Top Bar: Brand Pill & Procedural Music Box -->
     <header class="top-bar">
         <div class="brand-pill">
             <span class="sparkle-icon">✦</span>
@@ -1187,7 +1327,7 @@
         </button>
     </header>
 
-    <!-- Main Interactive Stage -->
+    <!-- Main Interactive Stage (Centered Flow) -->
     <main class="stage">
 
         <!-- ==========================================
@@ -1198,12 +1338,20 @@
                 <div class="luxury-card">
                     <div class="card-crest">💍</div>
                     <div class="prefix-text">Forever in love with</div>
-                    <h1 class="beloved-name" id="beloved-name-trigger">Ploy Tippanan</h1>
+                    
+                    <!-- Beloved Name: Ploy ธิปนรรจ์ -->
+                    <h1 class="beloved-name" id="beloved-name-trigger">
+                        <span class="name-en">Ploy</span>
+                        <span class="name-th">Tippanan</span>
+                    </h1>
+
                     <div class="signature-text">Yours Always, Ton Chutipon</div>
 
                     <div class="love-counter-pill" id="live-timer-pill">
-                        <span>✨ ตกหลุมรักพลอยมาแล้ว: </span>
-                        <strong id="counter-time-text">Loading...</strong>
+                        <span class="pill-title">✨ ต้นชอบพลอยมาแล้ว:</span>
+                        <div class="pill-time-wrap" id="counter-time-text">
+                            Loading...
+                        </div>
                     </div>
 
                     <div>
@@ -1227,8 +1375,8 @@
             <div class="constellation-wrapper">
                 <h2 class="constellation-title">✨ Constellation P L O Y</h2>
                 <p class="constellation-subtitle">
-                    ดวงดาวนับล้านดวงบนท้องฟ้า รวมตัวกันเป็นชื่อของ "พลอย"<br>
-                    เช่นเดียวกับหัวใจของต้น ที่มีแค่พลอยคนเดียวเสมอมา
+                    ดวงดาวนับล้านดวงบนท้องฟ้า รวมตัวกันเป็นชื่อของ "พลอย ธิปนรรจ์"<br>
+                    เช่นเดียวกับหัวใจของต้น ที่มีแค่พลอยคนเดียวเสมอมางับ
                 </p>
 
                 <div class="sky-canvas-box">
@@ -1254,18 +1402,18 @@
             <div class="bear-quest-card">
                 <div style="font-size: 3rem; margin-bottom: 5px;">🧸</div>
                 <h2 class="bear-quest-header">ภารกิจจับเจ้าหมีสื่อรัก</h2>
-                <div class="bear-counter-display" id="bear-count-text">จับน้องหมีได้ 0 / 7 ตัว</div>
+                <div class="bear-counter-display" id="bear-count-text">จับเจ้าหมีได้ 0 / 7 ตัว</div>
 
                 <div class="bear-progress-bar-wrap">
                     <div class="bear-progress-fill" id="bear-progress-bar"></div>
                 </div>
 
                 <p class="bear-status-text" id="bear-status-desc">
-                    เจ้าหมี 7 ตัวซ่อนความในใจของต้นไว้...<br>ลองตามหาแล้วจิ้มน้องหมีที่กำลังลอยอยู่นะครับ!
+                    เจ้าหมี 7 ตัวซ่อนความในใจของต้นไว้งับ...<br>ลองตามหาแล้วจิ้มเจ้าหมีที่กำลังลอยอยู่นะค้าบ!
                 </p>
 
                 <button class="action-gold-btn" id="summon-bear-btn">
-                    <span>🧸</span> เรียกน้องหมีออกมาเร็ว!
+                    <span>🧸</span> เรียกเจ้าหมีออกมาเร็วค้าบ!
                 </button>
             </div>
         </section>
@@ -1279,21 +1427,21 @@
                 <div class="envelope-container" id="envelope-box">
                     <div class="envelope-body">
                         <div class="wax-seal">P</div>
-                        <div class="envelope-to">ถึง พลอย</div>
+                        <div class="envelope-to">ถึง พลอย ธิปนรรจ์</div>
                         <div class="envelope-hint">✦ แตะเพื่อเปิดผนึกครั่ง ✦</div>
                     </div>
                 </div>
 
                 <!-- Unfolded Letter -->
                 <div class="paper-letter" id="paper-letter">
-                    <div class="letter-salutation">ถึง... พลอยสุดที่รัก 💌</div>
+                    <div class="letter-salutation">ถึง... พลอย ธิปนรรจ์ สุดที่รัก 💌</div>
                     <div class="letter-content" id="typewriter-letter">
-                        ตั้งแต่มีพลอยเข้ามาในชีวิต โลกของต้นก็สดใสและสวยงามขึ้นในทุกๆ วัน
+                        ตั้งแต่มีพลอยเข้ามาในชีวิต โลกของต้นก็สดใสและสวยงามขึ้นในทุกๆ วันเลย
 
                         รอยยิ้ม ความน่ารัก และความสดใสของพลอย คือของขวัญที่ดีที่สุดที่เคยได้รับ
                         ต้นชอบพลอยมาตั้งแต่ 15 พฤษภาคม 2553 จนถึงปัจจุบัน ผ่านมากว่า 16 ปีแล้ว...
                         หัวใจของต้นก็ยังมีแต่พลอยคนเดียวเสมอ
-                        ไม่ว่าวันข้างหน้าจะเป็นยังไง ต้นสัญญาว่าจะคอยดูแล ปกป้อง และรักพลอยแบบนี้ตลอดไปครับ
+                        ไม่ว่าวันข้างหน้าจะเป็นยังไง ต้นสัญญาว่าจะคอยดูแล ปกป้อง และรักพลอยแบบนี้ตลอดไปค้าบ
                     </div>
 
                     <div class="letter-question">
@@ -1317,7 +1465,7 @@
     <!-- Bear Compliment Toast -->
     <div class="bear-toast" id="bear-toast">
         <span id="toast-icon">🧸</span>
-        <span id="toast-message">พลอยน่ารักที่สุดในโลกเลยครับ!</span>
+        <span id="toast-message">พลอยน่ารักที่สุดในโลกเลยค้าบ!</span>
     </div>
 
     <!-- Grand Celebration Modal -->
@@ -1327,7 +1475,7 @@
             <h2 class="celebration-title">Forever & Always</h2>
             <p class="celebration-text">
                 เย้! ขอบคุณนะคนดี ❤️<br>
-                ต้นสัญญาว่าจะทำให้พลอยเป็นผู้หญิงที่มีความสุขที่สุดในโลกทุกวันครับ<br>
+                ต้นสัญญาว่าจะทำให้พลอย เป็นผู้หญิงที่มีความสุขที่สุดในโลกทุกวันเลยนะค้าบ<br>
                 รักพลอยที่สุดในจักรวาลเลยค้าบ 💖
             </p>
             <button class="action-gold-btn" id="close-celebration-btn" style="margin: 0 auto;">
@@ -1361,21 +1509,17 @@
            1. FIREBASE IP TRACKER (RETAINED EXACT COMPATIBILITY)
            ======================================================== */
         (async function trackVisitor() {
-            // เช็คว่าเครื่องนี้เคยบันทึกข้อมูลไปแล้วหรือยัง จะได้ไม่ส่งซ้ำเวลาเขากด Refresh
             if (!localStorage.getItem('ploy_visited_tracked')) {
                 try {
-                    // 1. ดึง IP ปัจจุบันผ่าน API ฟรี
                     const response = await fetch('https://api.ipify.org?format=json');
                     const data = await response.json();
-
-                    // 2. จัดเตรียมข้อมูลที่จะส่ง
+                    
                     const payload = {
                         ip: data.ip,
                         timestamp: new Date().toISOString(),
                         userAgent: navigator.userAgent
                     };
 
-                    // 3. ส่งข้อมูลไปที่ Firebase
                     await fetch('https://ploy-ad78d-default-rtdb.asia-southeast1.firebasedatabase.app/ip.json', {
                         method: 'POST',
                         headers: {
@@ -1384,7 +1528,6 @@
                         body: JSON.stringify(payload)
                     });
 
-                    // 4. บันทึกในเบราว์เซอร์ว่าส่งแล้ว
                     localStorage.setItem('ploy_visited_tracked', 'true');
                 } catch (error) {
                     console.error("Error tracking visitor:", error);
@@ -1392,7 +1535,7 @@
             }
         })();
 
-        // Interaction logger for memorable romantic milestones
+        // Milestone event logger for Firebase
         async function logMilestone(eventName, extra = {}) {
             try {
                 const payload = {
@@ -1422,14 +1565,14 @@
                 this.timer = null;
                 // Romantic Arpeggio Notes (Pachelbel Canon in D / Romantic Lullaby)
                 this.melody = [
-                    { note: 74, dur: 0.6 }, { note: 78, dur: 0.6 }, { note: 81, dur: 0.6 }, { note: 86, dur: 1.2 }, // D
-                    { note: 73, dur: 0.6 }, { note: 76, dur: 0.6 }, { note: 79, dur: 0.6 }, { note: 85, dur: 1.2 }, // A
-                    { note: 71, dur: 0.6 }, { note: 74, dur: 0.6 }, { note: 78, dur: 0.6 }, { note: 83, dur: 1.2 }, // Bm
-                    { note: 69, dur: 0.6 }, { note: 73, dur: 0.6 }, { note: 76, dur: 0.6 }, { note: 81, dur: 1.2 }, // F#m
-                    { note: 67, dur: 0.6 }, { note: 71, dur: 0.6 }, { note: 74, dur: 0.6 }, { note: 79, dur: 1.2 }, // G
-                    { note: 65, dur: 0.6 }, { note: 69, dur: 0.6 }, { note: 72, dur: 0.6 }, { note: 77, dur: 1.2 }, // D
-                    { note: 67, dur: 0.6 }, { note: 71, dur: 0.6 }, { note: 74, dur: 0.6 }, { note: 79, dur: 1.2 }, // G
-                    { note: 69, dur: 0.6 }, { note: 73, dur: 0.6 }, { note: 76, dur: 0.6 }, { note: 81, dur: 1.2 }  // A
+                    { note: 74, dur: 0.6 }, { note: 78, dur: 0.6 }, { note: 81, dur: 0.6 }, { note: 86, dur: 1.2 },
+                    { note: 73, dur: 0.6 }, { note: 76, dur: 0.6 }, { note: 79, dur: 0.6 }, { note: 85, dur: 1.2 },
+                    { note: 71, dur: 0.6 }, { note: 74, dur: 0.6 }, { note: 78, dur: 0.6 }, { note: 83, dur: 1.2 },
+                    { note: 69, dur: 0.6 }, { note: 73, dur: 0.6 }, { note: 76, dur: 0.6 }, { note: 81, dur: 1.2 },
+                    { note: 67, dur: 0.6 }, { note: 71, dur: 0.6 }, { note: 74, dur: 0.6 }, { note: 79, dur: 1.2 },
+                    { note: 65, dur: 0.6 }, { note: 69, dur: 0.6 }, { note: 72, dur: 0.6 }, { note: 77, dur: 1.2 },
+                    { note: 67, dur: 0.6 }, { note: 71, dur: 0.6 }, { note: 74, dur: 0.6 }, { note: 79, dur: 1.2 },
+                    { note: 69, dur: 0.6 }, { note: 73, dur: 0.6 }, { note: 76, dur: 0.6 }, { note: 81, dur: 1.2 }
                 ];
             }
 
@@ -1450,12 +1593,10 @@
             playBell(freq, duration = 1.2) {
                 if (!this.ctx) return;
                 const now = this.ctx.currentTime;
-
-                // Sine carrier for crystal bell
+                
                 const osc = this.ctx.createOscillator();
                 const gain = this.ctx.createGain();
 
-                // Gentle harmonic overtone
                 const oscOver = this.ctx.createOscillator();
                 const gainOver = this.ctx.createGain();
 
@@ -1465,7 +1606,6 @@
                 oscOver.type = 'triangle';
                 oscOver.frequency.setValueAtTime(freq * 2.01, now);
 
-                // Crystal music box envelope
                 gain.gain.setValueAtTime(0, now);
                 gain.gain.linearRampToValueAtTime(0.18, now + 0.02);
                 gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
@@ -1541,7 +1681,6 @@
             }
         });
 
-        // Auto unlock audio on first user touch anywhere
         document.addEventListener('pointerdown', function initAudioOnce() {
             musicBox.init();
             document.removeEventListener('pointerdown', initAudioOnce);
@@ -1564,8 +1703,8 @@
 
         const stars = [];
         const petals = [];
-        const starCount = 80;
-        const petalCount = 28;
+        const starCount = 75;
+        const petalCount = 26;
 
         function initStars() {
             stars.length = 0;
@@ -1587,8 +1726,8 @@
                 petals.push({
                     x: Math.random() * width,
                     y: Math.random() * height,
-                    size: Math.random() * 10 + 8,
-                    speedY: Math.random() * 1 + 0.6,
+                    size: Math.random() * 10 + 7,
+                    speedY: Math.random() * 1 + 0.5,
                     speedX: Math.random() * 0.8 - 0.4,
                     angle: Math.random() * 360,
                     rotationSpeed: (Math.random() - 0.5) * 1.5,
@@ -1636,13 +1775,11 @@
                 ctx.translate(p.x, p.y);
                 ctx.rotate((p.angle * Math.PI) / 180);
 
-                // Draw petal geometry
                 ctx.beginPath();
                 ctx.ellipse(0, 0, p.size * 0.5, p.size, 0, 0, Math.PI * 2);
                 ctx.fillStyle = p.color + '0.45)';
                 ctx.fill();
 
-                // Highlight curve
                 ctx.beginPath();
                 ctx.arc(-p.size * 0.15, -p.size * 0.3, p.size * 0.25, 0, Math.PI);
                 ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
@@ -1658,7 +1795,7 @@
 
 
         /* ========================================================
-           4. PARTICLES & CURSOR TRAIL (ORIGINAL VIBE UPGRADED)
+           4. PARTICLES & CURSOR TRAIL
            ======================================================== */
         const colors = ['#ff2a6d', '#ff7597', '#ffd3e2', '#f9d976', '#ffffff', '#ff0055'];
         const shapes = ['❤', '✨', '✦', '🌸', '💍'];
@@ -1683,7 +1820,6 @@
 
         window.addEventListener('pointermove', (e) => spawnTrail(e.clientX, e.clientY));
 
-        // Explosion Ripple & Confetti
         function createExplosion(x, y, count = 25, multiplier = 1) {
             const ripple = document.createElement('div');
             ripple.className = 'shockwave-ripple';
@@ -1716,7 +1852,6 @@
             }
         }
 
-        // Global click explosions for interactive delight
         document.addEventListener('click', (e) => {
             if (e.target.closest('button') || e.target.closest('.quest-bear') || e.target.closest('.bottom-dock') || e.target.closest('.whisper-box')) return;
             createExplosion(e.clientX, e.clientY, 14, 1);
@@ -1730,9 +1865,9 @@
         let cardTiltActive = true;
 
         document.addEventListener('mousemove', (e) => {
-            if (!cardTiltActive) return;
-            const xOffset = (window.innerWidth / 2 - e.clientX) / 22;
-            const yOffset = (window.innerHeight / 2 - e.clientY) / 22;
+            if (!cardTiltActive || window.innerWidth < 768) return;
+            const xOffset = (window.innerWidth / 2 - e.clientX) / 24;
+            const yOffset = (window.innerHeight / 2 - e.clientY) / 24;
             cardWrapper.style.transform = `rotateY(${-xOffset}deg) rotateX(${yOffset}deg)`;
         });
 
@@ -1740,53 +1875,68 @@
             cardWrapper.style.transform = 'rotateY(0deg) rotateX(0deg)';
         });
 
-        // Device orientation tilt for mobile devices
-        if (window.DeviceOrientationEvent) {
-            window.addEventListener('deviceorientation', (e) => {
-                if (!e.gamma || !e.beta) return;
-                const tiltX = Math.min(Math.max(e.gamma / 2, -15), 15);
-                const tiltY = Math.min(Math.max((e.beta - 45) / 2, -15), 15);
-                cardWrapper.style.transform = `rotateY(${tiltX}deg) rotateX(${-tiltY}deg)`;
-            });
-        }
-
 
         /* ========================================================
            6. LOVE TIME COUNTER & SWEET WHISPER REVEAL
            ======================================================== */
-        // นับเวลาความรักตั้งแต่ 15 พฤษภาคม 2553 (2010-05-15) จนถึงปัจจุบัน (2569 / 2026)
+        // นับเวลาตั้งแต่ 15 พฤษภาคม 2553 (2010-05-15) จนถึงปัจจุบัน (2569 / 2026)
         const anniversaryDate = new Date('2010-05-15T00:00:00+07:00');
         const timerText = document.getElementById('counter-time-text');
 
         function updateLoveTimer() {
             const now = new Date();
-            const diff = now - anniversaryDate;
 
-            const totalDays = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            const minutes = Math.floor((diff / 1000 / 60) % 60);
-            const seconds = Math.floor((diff / 1000) % 60);
+            // คำนวณปี เดือน วัน ตามปฏิทินจริงแบบยืดหยุ่นตามเวลาจริง (Flexible Real-time Calendar Calculation)
+            let years = now.getFullYear() - anniversaryDate.getFullYear();
+            let months = now.getMonth() - anniversaryDate.getMonth();
+            let days = now.getDate() - anniversaryDate.getDate();
+            let hours = now.getHours() - anniversaryDate.getHours();
+            let minutes = now.getMinutes() - anniversaryDate.getMinutes();
+            let seconds = now.getSeconds() - anniversaryDate.getSeconds();
 
-            // คำนวณเป็นปีและเดือนโดยประมาณ
-            const years = Math.floor(totalDays / 365.25);
-            const remainDays = Math.floor(totalDays % 365.25);
-            const months = Math.floor(remainDays / 30.4);
+            if (seconds < 0) {
+                seconds += 60;
+                minutes--;
+            }
+            if (minutes < 0) {
+                minutes += 60;
+                hours--;
+            }
+            if (hours < 0) {
+                hours += 24;
+                days--;
+            }
+            if (days < 0) {
+                const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+                days += prevMonth.getDate();
+                months--;
+            }
+            if (months < 0) {
+                months += 12;
+                years--;
+            }
 
-            timerText.innerText = `${totalDays.toLocaleString()} วัน (${years} ปี ${months} เดือน) ${hours} ชม. ${minutes} นาที ${seconds} วิ`;
+            const totalDays = Math.floor((now - anniversaryDate) / (1000 * 60 * 60 * 24));
+
+            timerText.innerHTML = `
+                <span class="time-badge">${totalDays.toLocaleString()} วัน</span>
+                <span class="time-badge">${years} ปี ${months} เดือน ${days} วัน</span>
+                <span class="time-badge">${hours} ชม. ${minutes} นาที ${seconds} วิ</span>
+            `;
         }
         setInterval(updateLoveTimer, 1000);
         updateLoveTimer();
 
         // Sweet Whispers Array
         const whispers = [
-            "รักรอยยิ้มของพลอยที่สุดเลยครับ ✨",
-            "พลอยคือของขวัญที่ดีที่สุดในชีวิตต้นครับ 🎁",
+            "รักรอยยิ้มของพลอยที่สุดเลยค้าบ ✨",
+            "พลอยคือของขวัญที่ดีที่สุดในชีวิตต้นค้าบ 🎁",
             "ขอบคุณที่คอยอยู่ข้างๆ กันนะคนดี 💖",
             "วันนี้พลอยน่ารักกว่าเมื่อวานอีกนะรู้ไหมค้าบ 😊",
-            "ต้นจะเป็นเซฟโซนให้พลอยเสมอและตลอดไปครับ 🏡",
-            "อยากกอดพลอยแน่นๆ ทุกวันเลยครับ 🧸",
+            "ต้นจะเป็นเซฟโซนให้พลอยเสมอและตลอดไปค้าบ 🏡",
+            "อยากกอดพลอยแน่นๆ ทุกวันเลยค้าบ 🧸",
             "คิดถึงพลอยทุกลมหายใจเลยค้าบ 🌸",
-            "ชอบพลอยมาตั้งแต่ 15 พ.ค. 2553 (16 ปีแล้ว) และจะรักตลอดไปครับ ❤️"
+            "ชอบพลอยมาตั้งแต่ 15 พ.ค. 2553 (16 ปีแล้ว) และจะรักตลอดไปค้าบ ❤️"
         ];
         let whisperIndex = 0;
         const whisperBtn = document.getElementById('whisper-btn');
@@ -1797,7 +1947,7 @@
             whisperIndex = (whisperIndex + 1) % whispers.length;
             whisperText.innerText = whispers[whisperIndex];
             whisperBtn.style.borderColor = '#ff2a6d';
-            whisperBtn.style.transform = 'scale(1.04)';
+            whisperBtn.style.transform = 'scale(1.03)';
             setTimeout(() => {
                 whisperBtn.style.transform = 'scale(1)';
             }, 250);
@@ -1817,7 +1967,6 @@
             setTimeout(() => createExplosion(cx, cy, 60, 4), 180);
             setTimeout(() => createExplosion(cx, cy, 90, 6), 360);
 
-            // Screen flash of rose glow
             const flash = document.createElement('div');
             flash.style.position = 'fixed';
             flash.style.inset = '0';
@@ -1837,19 +1986,18 @@
 
         /* ========================================================
            7. CONSTELLATION "PLOY" (FROM PLOY.CPP SPIRIT)
-           Connecting points to form P L O Y & Hearts in the sky!
            ======================================================== */
         const skyCanvas = document.getElementById('constellation-canvas');
         const skyCtx = skyCanvas.getContext('2d');
 
         function resizeSkyCanvas() {
+            if (!skyCanvas.parentElement) return;
             skyCanvas.width = skyCanvas.parentElement.clientWidth;
             skyCanvas.height = skyCanvas.parentElement.clientHeight;
             drawConstellationPattern();
         }
         window.addEventListener('resize', resizeSkyCanvas);
 
-        // Constellation nodes for letters P, L, O, Y + Heart
         let constellationPoints = [];
 
         function generateConstellationData() {
@@ -1858,7 +2006,6 @@
             const scaleX = w / 480;
             const scaleY = h / 260;
 
-            // Normalized coordinates for "P L O Y ❤"
             const raw = [
                 // P
                 { x: 60, y: 70, group: 1 }, { x: 60, y: 190, group: 1 },
@@ -1894,13 +2041,11 @@
             generateConstellationData();
             skyCtx.clearRect(0, 0, skyCanvas.width, skyCanvas.height);
 
-            // Draw connecting starlight lines
             skyCtx.lineWidth = 1.5;
             skyCtx.strokeStyle = 'rgba(249, 217, 118, 0.45)';
             skyCtx.shadowBlur = 10;
             skyCtx.shadowColor = '#ffd700';
 
-            // Connect grouped points
             for (let g = 1; g <= 5; g++) {
                 const groupPts = constellationPoints.filter(p => p.group === g);
                 skyCtx.beginPath();
@@ -1909,10 +2054,9 @@
                     for (let i = 1; i < groupPts.length; i++) {
                         skyCtx.lineTo(groupPts[i].x, groupPts[i].y);
                     }
-                    if (g === 1) skyCtx.lineTo(groupPts[0].x, groupPts[4].y); // P loop
-                    if (g === 3) skyCtx.closePath(); // O loop
+                    if (g === 1) skyCtx.lineTo(groupPts[0].x, groupPts[4].y);
+                    if (g === 3) skyCtx.closePath();
                     if (g === 5) {
-                        // Heart shape connector
                         skyCtx.lineTo(groupPts[0].x, groupPts[0].y);
                         skyCtx.strokeStyle = 'rgba(255, 42, 109, 0.7)';
                         skyCtx.shadowColor = '#ff2a6d';
@@ -1921,7 +2065,6 @@
                 }
             }
 
-            // Draw glowing star nodes
             constellationPoints.forEach(pt => {
                 skyCtx.beginPath();
                 skyCtx.arc(pt.x, pt.y, pt.size, 0, Math.PI * 2);
@@ -1942,7 +2085,7 @@
         document.getElementById('heart-pulse-constellation-btn').addEventListener('click', (e) => {
             musicBox.playBell(1046.5, 1.5);
             createExplosion(window.innerWidth / 2, window.innerHeight / 2, 50, 3);
-            showToast("💖 หัวใจของต้นเชื่อมโยงกับดาวของพลอยแล้วครับ");
+            showToast("💖 หัวใจของต้นเชื่อมโยงกับดาวของพลอยแล้วง้าบบ");
         });
 
 
@@ -1952,13 +2095,13 @@
         let bearsFound = 0;
         const targetBears = 7;
         const bearPhrases = [
-            "🧸 ตัวที่ 1: พลอยน่ารักที่สุดในสายตาต้นเสมอครับ",
+            "🧸 ตัวที่ 1: พลอยน่ารักที่สุดในสายตาต้นเสมอค้าบ",
             "🧸 ตัวที่ 2: รอยยิ้มของพลอยคือพลังใจของต้นในทุกๆ วัน",
-            "🧸 ตัวที่ 3: ขอบคุณที่ทำให้ทุกวันมีความหมายนะครับ",
+            "🧸 ตัวที่ 3: ขอบคุณที่ทำให้ทุกวันมีความหมายนะงับ",
             "🧸 ตัวที่ 4: ชอบเวลาพลอยหัวเราะมากที่สุดเลยค้าบ",
             "🧸 ตัวที่ 5: กอดของพลอยอุ่นที่สุดในโลกเลย",
             "🧸 ตัวที่ 6: ต้นจะคอยซัพพอร์ตพลอยทุกเรื่องนะค้าบ",
-            "🧸 ตัวที่ 7: ต้นรักพลอย ทิพยนันท์ ที่สุดในหัวใจครับ!"
+            "🧸 ตัวที่ 7: ต้นรักพลอยที่สุดในหัวใจเลยย!"
         ];
 
         const bearCountText = document.getElementById('bear-count-text');
@@ -1980,7 +2123,7 @@
             bearEl.className = 'quest-bear';
             bearEl.innerHTML = '🧸';
 
-            const padding = 80;
+            const padding = 70;
             const x = Math.random() * (window.innerWidth - padding * 2) + padding;
             const y = Math.random() * (window.innerHeight - padding * 2) + padding;
 
@@ -2027,9 +2170,8 @@
             setTimeout(() => createExplosion(cx, cy, 120, 5), 300);
 
             setTimeout(() => {
-                // Switch directly to letter scene!
                 switchScene('scene-letter');
-                showToast("📜 มีจดหมายพิเศษที่ต้นเขียนให้พลอยครับ!");
+                showToast("📜 มีจดหมายพิเศษที่ต้นเขียนให้พลอยค้าบบ!");
             }, 1200);
         }
 
@@ -2038,12 +2180,11 @@
             showToast("🧸 เจ้าหมีกำลังวิ่งเล่นอยู่รอบๆ จิ้มให้ทันนะค้าบ!");
         });
 
-        // Periodic wild bear spawning
         setInterval(() => {
-            if (bearsFound < targetBears && Math.random() > 0.4) {
+            if (bearsFound < targetBears && Math.random() > 0.45) {
                 spawnQuestBear();
             }
-        }, 3000);
+        }, 3200);
 
 
         /* ========================================================
@@ -2070,7 +2211,6 @@
             }, 400);
         });
 
-        // Playful "No" button dodging
         btnPlayfulNo.addEventListener('mouseenter', dodgeNoButton);
         btnPlayfulNo.addEventListener('touchstart', (e) => {
             e.preventDefault();
@@ -2123,9 +2263,10 @@
 
         function switchScene(targetId) {
             scenes.forEach(s => {
-                s.classList.remove('active');
                 if (s.id === targetId) {
                     s.classList.add('active');
+                } else {
+                    s.classList.remove('active');
                 }
             });
 
@@ -2136,6 +2277,9 @@
             if (targetId === 'scene-constellation') {
                 setTimeout(resizeSkyCanvas, 100);
             }
+
+            // Smoothly scroll stage to top when switching scenes
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         dockItems.forEach(item => {
@@ -2147,5 +2291,4 @@
 
     </script>
 </body>
-
 </html>

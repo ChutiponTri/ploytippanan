@@ -1,2 +1,5 @@
 ploy
 ploy.*
+node_modules
+dist
+*.local

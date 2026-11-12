@@ -1,0 +1,1365 @@
+/* ========================================================
+   DESIGN SYSTEM: LUXURY ROMANCE & MIDNIGHT ROSE
+   ======================================================== */
+:root {
+    --primary-rose: #ff2a6d;
+    --rose-glow: #ff0055;
+    --deep-rose: #7a093a;
+    --gold-accent: #f9d976;
+    --gold-glow: #e9b642;
+    --rose-gold: #f8a5c2;
+    --blush-pink: #ffd3e2;
+    --card-glass: rgba(18, 7, 24, 0.62);
+    --border-glass: rgba(255, 255, 255, 0.16);
+    --border-glow: rgba(255, 60, 110, 0.4);
+    --bg-deep: #07020d;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100%;
+    min-height: 100dvh;
+    background-color: var(--bg-deep);
+    font-family: 'Montserrat', 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #ffffff;
+    user-select: none;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    overflow-y: auto;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+
+/* Ambient Cosmic Background */
+body {
+    position: relative;
+    background: radial-gradient(circle at 50% 20%, #240b2e 0%, #0d0314 60%, #05010a 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Glowing Aurora Blobs */
+.ambient-glow {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 0;
+    animation: pulseAura 14s ease-in-out infinite alternate;
+}
+
+.glow-1 {
+    width: 50vw;
+    height: 50vw;
+    max-width: 600px;
+    max-height: 600px;
+    background: radial-gradient(circle, #ff1a6c, #800b38);
+    top: -10%;
+    left: -10%;
+}
+
+.glow-2 {
+    width: 55vw;
+    height: 55vw;
+    max-width: 650px;
+    max-height: 650px;
+    background: radial-gradient(circle, #7e1e9c, #3a0647);
+    bottom: -15%;
+    right: -10%;
+    animation-duration: 18s;
+    animation-delay: -5s;
+}
+
+.glow-3 {
+    width: 40vw;
+    height: 40vw;
+    max-width: 450px;
+    max-height: 450px;
+    background: radial-gradient(circle, #c44569, #4a0d24);
+    top: 40%;
+    left: 30%;
+    opacity: 0.22;
+    animation-duration: 12s;
+}
+
+@keyframes pulseAura {
+    0% { transform: scale(0.9) translate(0, 0); opacity: 0.28; }
+    50% { transform: scale(1.15) translate(30px, -20px); opacity: 0.42; }
+    100% { transform: scale(1) translate(-20px, 30px); opacity: 0.32; }
+}
+
+/* Background Canvas (Stars, constellation, petals, dust) */
+#fx-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Main Viewport Stage: Fully Symmetric & Responsive */
+.stage {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    min-height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1200px;
+    padding-top: max(80px, calc(70px + env(safe-area-inset-top)));
+    padding-bottom: max(95px, calc(80px + env(safe-area-inset-bottom)));
+    padding-left: max(18px, env(safe-area-inset-left));
+    padding-right: max(18px, env(safe-area-inset-right));
+    box-sizing: border-box;
+}
+
+/* Top Bar: Brand Pill & Audio Switcher */
+.top-bar {
+    position: fixed;
+    top: max(16px, env(safe-area-inset-top));
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 max(20px, env(safe-area-inset-left));
+    z-index: 100;
+    pointer-events: auto;
+    max-width: 1100px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.brand-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 30px;
+    font-size: 0.85rem;
+    color: var(--blush-pink);
+    letter-spacing: 2px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+}
+
+.brand-pill .sparkle-icon {
+    color: var(--gold-accent);
+    animation: rotateSparkle 6s linear infinite;
+}
+
+@keyframes rotateSparkle {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.audio-pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 18px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 42, 109, 0.3);
+    border-radius: 30px;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 0.82rem;
+    box-shadow: 0 8px 24px rgba(255, 42, 109, 0.2);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    white-space: nowrap;
+}
+
+.audio-pill:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary-rose);
+    box-shadow: 0 10px 28px rgba(255, 42, 109, 0.35);
+}
+
+.eq-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 2.5px;
+    height: 14px;
+}
+
+.eq-bar {
+    width: 3px;
+    height: 4px;
+    background: var(--rose-gold);
+    border-radius: 2px;
+    transition: height 0.2s;
+}
+
+.audio-pill.playing .eq-bar:nth-child(1) { animation: eqBounce 1s infinite 0.1s; }
+.audio-pill.playing .eq-bar:nth-child(2) { animation: eqBounce 0.8s infinite 0.25s; }
+.audio-pill.playing .eq-bar:nth-child(3) { animation: eqBounce 1.2s infinite 0.05s; }
+.audio-pill.playing .eq-bar:nth-child(4) { animation: eqBounce 0.9s infinite 0.35s; }
+
+@keyframes eqBounce {
+    0%, 100% { height: 4px; }
+    50% { height: 14px; background: var(--gold-accent); }
+}
+
+/* ========================================================
+   SCENE CONTAINERS (Symmetric Flow Layout)
+   ======================================================== */
+.scene-container {
+    width: 100%;
+    max-width: 580px;
+    margin: 0 auto;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.96) translateY(12px);
+    transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scene-container.active {
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1) translateY(0);
+}
+
+/* Helper for unbreakable cohesive phrases */
+.nobr {
+    white-space: nowrap;
+    display: inline-block;
+}
+
+/* ========================================================
+   SCENE 1: LUXURY ROYAL LOVE CARD (MAIN)
+   ======================================================== */
+.card-wrapper-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.15s ease-out;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.luxury-card {
+    position: relative;
+    width: 100%;
+    max-width: 560px;
+    padding: 3.2rem 2.6rem 2.8rem;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    background: linear-gradient(145deg, rgba(30, 10, 38, 0.72), rgba(12, 4, 18, 0.88));
+    border-radius: 36px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 
+        0 30px 80px rgba(0, 0, 0, 0.7),
+        0 0 50px rgba(255, 42, 109, 0.18),
+        inset 0 1px 1px rgba(255, 255, 255, 0.25),
+        inset 0 0 30px rgba(255, 42, 109, 0.08);
+    text-align: center;
+    transform: translateZ(40px);
+    animation: cardFloatAnim 5s ease-in-out infinite alternate;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+@keyframes cardFloatAnim {
+    0% { transform: translateY(0px) translateZ(40px); }
+    100% { transform: translateY(-10px) translateZ(40px); }
+}
+
+.luxury-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.card-crest {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 42, 109, 0.2));
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    margin-bottom: 18px;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    font-size: 1.4rem;
+}
+
+.prefix-text {
+    font-size: clamp(0.85rem, 2.2vw, 1.1rem);
+    color: var(--blush-pink);
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font-weight: 300;
+    margin-bottom: 10px;
+    opacity: 0.95;
+    text-shadow: 0 0 12px rgba(255, 179, 198, 0.5);
+    white-space: nowrap;
+}
+
+/* Beloved Name: "Ploy ธิปนรรจ์" Perfectly Symmetric & Scaled */
+.beloved-name {
+    font-size: clamp(2.2rem, 7.5vw, 4.6rem);
+    line-height: 1.2;
+    margin: 6px 0 16px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #ffffff 0%, #ffe3ec 40%, #ff8da8 70%, #ffb3c6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 
+        0 0 25px rgba(255, 42, 109, 0.8),
+        0 0 60px rgba(255, 42, 109, 0.5);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s;
+    display: inline-flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 12px;
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+.beloved-name .name-en {
+    font-family: 'Great Vibes', cursive;
+}
+
+.beloved-name .name-th {
+    font-family: 'Charm', cursive, 'Sarabun', sans-serif;
+    font-size: 0.72em;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.beloved-name:hover {
+    transform: scale(1.03) translateY(-2px);
+    filter: drop-shadow(0 0 30px #ff0055);
+}
+
+.signature-text {
+    font-size: clamp(0.85rem, 2vw, 1.05rem);
+    color: var(--rose-gold);
+    font-style: italic;
+    font-weight: 300;
+    letter-spacing: 2.5px;
+    margin-top: 6px;
+    margin-bottom: 22px;
+    opacity: 0.9;
+    white-space: nowrap;
+}
+
+/* Love Days Pill: Symmetric multi-device wrapper */
+.love-counter-pill {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 22px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 22px;
+    font-size: 0.88rem;
+    color: #ffd1dc;
+    margin-bottom: 24px;
+    backdrop-filter: blur(8px);
+    max-width: 100%;
+}
+
+.love-counter-pill .pill-title {
+    color: var(--blush-pink);
+    font-size: 0.82rem;
+    letter-spacing: 1px;
+    opacity: 0.95;
+    white-space: nowrap;
+}
+
+.love-counter-pill .pill-time-wrap {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: var(--gold-accent);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+.love-counter-pill .time-badge {
+    background: rgba(255, 215, 0, 0.12);
+    padding: 2px 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 215, 0, 0.25);
+    white-space: nowrap;
+}
+
+.heart-igniter-btn {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff1a6c, #e6004c);
+    color: #ffffff;
+    font-size: 2.2rem;
+    cursor: pointer;
+    box-shadow: 
+        0 0 25px rgba(255, 0, 76, 0.7),
+        0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: heartPulseAnim 1.6s ease-in-out infinite;
+}
+
+.heart-igniter-btn:hover {
+    transform: scale(1.12);
+    box-shadow: 0 0 45px rgba(255, 0, 76, 0.9), 0 0 70px rgba(255, 215, 0, 0.4);
+}
+
+.heart-igniter-btn:active {
+    transform: scale(0.92);
+}
+
+@keyframes heartPulseAnim {
+    0%, 100% { transform: scale(1); }
+    20% { transform: scale(1.16); }
+    35% { transform: scale(1.04); }
+    50% { transform: scale(1.16); }
+}
+
+.whisper-box {
+    margin-top: 24px;
+    padding: 12px 18px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px dashed rgba(255, 179, 198, 0.35);
+    border-radius: 16px;
+    font-size: 0.92rem;
+    color: var(--blush-pink);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    max-width: 100%;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.whisper-box:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: var(--primary-rose);
+    transform: translateY(-2px);
+}
+
+/* ========================================================
+   SCENE 2: CONSTELLATION "PLOY" (FROM PLOY.CPP SPIRIT)
+   ======================================================== */
+.constellation-wrapper {
+    width: 100%;
+    max-width: 580px;
+    text-align: center;
+    padding: 2.8rem 2.2rem 2.5rem;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    background: rgba(14, 5, 22, 0.78);
+    border-radius: 36px;
+    border: 1px solid rgba(255, 215, 0, 0.28);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 50px rgba(255, 215, 0, 0.15);
+    box-sizing: border-box;
+}
+
+.constellation-title {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    color: var(--gold-accent);
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+    margin-bottom: 10px;
+    white-space: nowrap;
+}
+
+.constellation-subtitle {
+    font-size: 0.95rem;
+    color: var(--blush-pink);
+    font-weight: 300;
+    line-height: 1.65;
+    margin-bottom: 22px;
+    text-align: center;
+}
+
+.sky-canvas-box {
+    position: relative;
+    width: 100%;
+    height: 270px;
+    background: radial-gradient(circle at center, rgba(35, 12, 50, 0.6) 0%, rgba(5, 2, 10, 0.9) 100%);
+    border-radius: 22px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.8);
+}
+
+#constellation-canvas {
+    width: 100%;
+    height: 100%;
+    cursor: crosshair;
+}
+
+.constellation-btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 22px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.action-gold-btn {
+    padding: 10px 22px;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #f9d976 0%, #e9b642 100%);
+    color: #2b0b18;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(233, 182, 66, 0.35);
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.action-gold-btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(233, 182, 66, 0.55);
+}
+
+/* ========================================================
+   SCENE 3: TEDDY BEAR QUEST 2.0 (UPGRADED GIMMICK)
+   ======================================================== */
+.bear-quest-card {
+    width: 100%;
+    max-width: 580px;
+    padding: 2.8rem 2.2rem 2.4rem;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    background: rgba(22, 8, 30, 0.78);
+    border-radius: 36px;
+    border: 1px solid rgba(255, 105, 180, 0.3);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 50px rgba(255, 105, 180, 0.2);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.bear-quest-header {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4.5vw, 2.2rem);
+    color: #ffffff;
+    margin-bottom: 8px;
+    white-space: nowrap;
+}
+
+.bear-counter-display {
+    font-size: 1.1rem;
+    color: var(--blush-pink);
+    font-weight: 500;
+    margin-bottom: 12px;
+    white-space: nowrap;
+}
+
+.bear-progress-bar-wrap {
+    margin: 15px auto;
+    width: 100%;
+    max-width: 380px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    position: relative;
+}
+
+.bear-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #ff2a6d, #f9d976);
+    border-radius: 20px;
+    transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 0 15px #ff2a6d;
+}
+
+.bear-status-text {
+    font-size: 0.95rem;
+    color: #ffcad4;
+    min-height: 24px;
+    margin-bottom: 22px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.quest-bear {
+    position: fixed;
+    font-size: 2.8rem;
+    cursor: pointer;
+    z-index: 150;
+    filter: drop-shadow(0 0 14px rgba(255, 42, 109, 0.9)) drop-shadow(0 0 30px rgba(255, 215, 0, 0.6));
+    animation: bearFloatSpawn 4.5s ease-in-out forwards;
+    transition: transform 0.2s;
+    user-select: none;
+}
+
+.quest-bear:hover {
+    transform: scale(1.3) rotate(15deg);
+}
+
+@keyframes bearFloatSpawn {
+    0% { transform: scale(0) translateY(40px) rotate(-30deg); opacity: 0; }
+    12% { transform: scale(1.1) translateY(0) rotate(5deg); opacity: 1; }
+    80% { transform: scale(1) translateY(-10px) rotate(-5deg); opacity: 1; }
+    92% { transform: scale(1.2) translateY(-20px) rotate(20deg); opacity: 0.9; }
+    100% { transform: scale(0) translateY(-40px) rotate(45deg); opacity: 0; }
+}
+
+.bear-toast {
+    position: fixed;
+    top: max(80px, calc(70px + env(safe-area-inset-top)));
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    padding: 12px 24px;
+    background: rgba(30, 8, 38, 0.94);
+    border: 1px solid var(--primary-rose);
+    box-shadow: 0 10px 30px rgba(255, 42, 109, 0.4);
+    border-radius: 30px;
+    color: #ffffff;
+    font-size: 0.92rem;
+    z-index: 300;
+    backdrop-filter: blur(15px);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 90vw;
+    text-align: center;
+}
+
+.bear-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ========================================================
+   SCENE 4: 3D WAX-SEALED LOVE LETTER
+   ======================================================== */
+.letter-scene {
+    width: 100%;
+    max-width: 580px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.envelope-container {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    height: 290px;
+    cursor: pointer;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    perspective: 1000px;
+    margin: 0 auto;
+}
+
+.envelope-container:hover {
+    transform: translateY(-8px) scale(1.02);
+}
+
+.envelope-body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #2b0b1e 0%, #170410 100%);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 215, 0, 0.35);
+    box-shadow: 
+        0 25px 60px rgba(0, 0, 0, 0.8),
+        0 0 35px rgba(255, 42, 109, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    text-align: center;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.envelope-body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    border-bottom: 2px solid rgba(255, 215, 0, 0.15);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, transparent 100%);
+}
+
+.wax-seal {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #e60039 0%, #8a0022 100%);
+    border: 3px solid #ff4d79;
+    box-shadow: 0 0 30px rgba(230, 0, 57, 0.7), inset 0 2px 6px rgba(255, 255, 255, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 1.8rem;
+    color: #ffd6e0;
+    margin-bottom: 14px;
+    transition: all 0.4s;
+    animation: sealGlow 2.5s infinite alternate;
+}
+
+@keyframes sealGlow {
+    0% { box-shadow: 0 0 20px rgba(230, 0, 57, 0.6); }
+    100% { box-shadow: 0 0 40px rgba(230, 0, 57, 0.95), 0 0 60px rgba(255, 215, 0, 0.4); }
+}
+
+.envelope-to {
+    font-family: 'Charm', 'Great Vibes', cursive;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--blush-pink);
+    text-shadow: 0 0 15px rgba(255, 42, 109, 0.6);
+    white-space: nowrap;
+}
+
+.envelope-hint {
+    font-size: 0.85rem;
+    color: var(--gold-accent);
+    letter-spacing: 2px;
+    margin-top: 8px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* Unfolded Romantic Paper Letter */
+.paper-letter {
+    display: none;
+    width: 100%;
+    max-width: 560px;
+    background: linear-gradient(145deg, rgba(28, 9, 32, 0.94), rgba(16, 4, 20, 0.98));
+    border-radius: 28px;
+    padding: 3rem 2.4rem 2.6rem;
+    border: 1px solid rgba(255, 215, 0, 0.35);
+    box-shadow: 
+        0 30px 80px rgba(0, 0, 0, 0.8),
+        0 0 50px rgba(255, 42, 109, 0.3);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    text-align: center;
+    animation: letterSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    box-sizing: border-box;
+}
+
+@keyframes letterSlideUp {
+    from { opacity: 0; transform: translateY(40px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.letter-salutation {
+    font-family: 'Charm', cursive;
+    font-size: clamp(2rem, 5.5vw, 2.8rem);
+    font-weight: 700;
+    color: #ff2a6d;
+    text-shadow: 0 0 15px rgba(255, 42, 109, 0.5);
+    margin-bottom: 16px;
+    white-space: nowrap;
+}
+
+.letter-content {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: #ffe6ee;
+    font-weight: 300;
+    text-align: left;
+    margin-bottom: 24px;
+    white-space: pre-line;
+    border-left: 2px solid rgba(255, 42, 109, 0.4);
+    padding-left: 18px;
+    font-family: 'Sarabun', sans-serif;
+}
+
+.letter-question {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.1rem, 3.2vw, 1.35rem);
+    color: var(--gold-accent);
+    margin: 20px 0 20px;
+    font-style: italic;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.proposal-choice-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+    min-height: 56px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.btn-yes {
+    padding: 12px 32px;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #ff0055, #ff2a6d);
+    color: white;
+    font-size: 1.02rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(255, 0, 85, 0.5);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    white-space: nowrap;
+}
+
+.btn-yes:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 35px rgba(255, 0, 85, 0.8);
+}
+
+.btn-playful-no {
+    padding: 12px 26px;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffb3c6;
+    font-size: 0.95rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+    white-space: nowrap;
+    position: relative;
+}
+
+/* Celebration Modal */
+.celebration-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(8, 2, 14, 0.88);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.celebration-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.celebration-card {
+    background: linear-gradient(145deg, #2a0a25 0%, #140316 100%);
+    border-radius: 35px;
+    border: 2px solid rgba(255, 215, 0, 0.5);
+    padding: 3.2rem 2.4rem;
+    max-width: 520px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 30px 100px rgba(255, 0, 85, 0.4), 0 0 60px rgba(255, 215, 0, 0.3);
+    transform: scale(0.9);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    box-sizing: border-box;
+}
+
+.celebration-overlay.active .celebration-card {
+    transform: scale(1);
+}
+
+.celebration-ring {
+    font-size: 3.8rem;
+    margin-bottom: 8px;
+    display: inline-block;
+    animation: ringBounce 1.5s infinite alternate;
+}
+
+@keyframes ringBounce {
+    0% { transform: translateY(0) scale(1); }
+    100% { transform: translateY(-12px) scale(1.15) rotate(10deg); }
+}
+
+.celebration-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2.6rem, 7vw, 4rem);
+    color: #ffffff;
+    text-shadow: 0 0 20px #ff2a6d, 0 0 40px #ff0055;
+    margin-bottom: 14px;
+    white-space: nowrap;
+}
+
+.celebration-text {
+    font-size: 1.05rem;
+    color: var(--blush-pink);
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+/* Bottom Floating Luxury Dock: Centered & Balanced without overflowing */
+.bottom-dock {
+    position: fixed;
+    bottom: max(20px, calc(14px + env(safe-area-inset-bottom)));
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 10px;
+    background: rgba(22, 8, 30, 0.78);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 40px;
+    box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.7),
+        0 0 25px rgba(255, 42, 109, 0.2);
+    z-index: 100;
+    width: max-content;
+    max-width: calc(100vw - 24px);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.dock-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 0.82rem;
+    color: #ffd6e0;
+    background: transparent;
+    border: none;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.dock-item .dock-icon {
+    font-size: 1.15rem;
+    transition: transform 0.3s;
+}
+
+.dock-item:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+}
+
+.dock-item:hover .dock-icon {
+    transform: scale(1.15);
+}
+
+.dock-item.active {
+    background: linear-gradient(135deg, rgba(255, 42, 109, 0.88), rgba(200, 10, 80, 0.88));
+    color: #ffffff;
+    font-weight: 500;
+    box-shadow: 0 4px 20px rgba(255, 42, 109, 0.5);
+}
+
+/* ========================================================
+   RESPONSIVE RULES: TABLET (IPAD) & MOBILE SPECIFICS
+   ======================================================== */
+
+/* iPad / Tablet (768px to 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .stage {
+        padding-top: max(85px, calc(75px + env(safe-area-inset-top)));
+        padding-bottom: max(100px, calc(85px + env(safe-area-inset-bottom)));
+    }
+
+    .luxury-card, .constellation-wrapper, .bear-quest-card, .paper-letter {
+        max-width: 520px;
+        padding: 2.8rem 2.2rem 2.4rem;
+    }
+
+    .beloved-name {
+        font-size: clamp(2.6rem, 5.5vw, 3.8rem);
+    }
+
+    .bottom-dock {
+        bottom: 22px;
+        padding: 6px 8px;
+        gap: 5px;
+    }
+
+    .dock-item {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+        gap: 5px;
+    }
+}
+
+/* Mobile Phones (<= 767px) */
+@media (max-width: 767px) {
+    .stage {
+        padding-top: max(68px, calc(58px + env(safe-area-inset-top)));
+        padding-bottom: max(85px, calc(72px + env(safe-area-inset-bottom)));
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .top-bar {
+        top: max(12px, env(safe-area-inset-top));
+        padding: 0 14px;
+    }
+
+    .brand-pill {
+        padding: 6px 14px;
+        font-size: 0.78rem;
+        letter-spacing: 1.5px;
+    }
+
+    .audio-pill {
+        padding: 6px 14px;
+        font-size: 0.78rem;
+    }
+
+    .luxury-card, .constellation-wrapper, .bear-quest-card, .paper-letter {
+        padding: 2.2rem 1.3rem 2rem;
+        border-radius: 26px;
+        max-width: 100%;
+    }
+
+    .beloved-name {
+        font-size: clamp(1.9rem, 7vw, 3rem);
+        gap: 8px;
+    }
+
+    .prefix-text {
+        font-size: 0.82rem;
+        letter-spacing: 3.5px;
+        margin-bottom: 8px;
+    }
+
+    .signature-text {
+        font-size: 0.85rem;
+        letter-spacing: 2px;
+        margin-top: 6px;
+        margin-bottom: 18px;
+    }
+
+    .love-counter-pill {
+        padding: 8px 14px;
+        font-size: 0.82rem;
+        width: 100%;
+        max-width: 340px;
+    }
+
+    .love-counter-pill .pill-time-wrap {
+        font-size: 0.88rem;
+    }
+
+    .whisper-box {
+        font-size: 0.85rem;
+        padding: 10px 14px;
+    }
+
+    .heart-igniter-btn {
+        width: 68px;
+        height: 68px;
+        font-size: 1.9rem;
+    }
+
+    .sky-canvas-box {
+        height: 230px;
+        border-radius: 18px;
+    }
+
+    .constellation-title {
+        font-size: 1.4rem;
+    }
+
+    .constellation-subtitle {
+        font-size: 0.88rem;
+    }
+
+    .constellation-btn-group {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .constellation-btn-group .action-gold-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .bear-quest-card {
+        padding: 2.2rem 1.2rem 1.8rem;
+    }
+
+    .bear-quest-header {
+        font-size: 1.55rem;
+    }
+
+    .envelope-container {
+        max-width: 320px;
+        height: 230px;
+    }
+
+    .wax-seal {
+        width: 64px;
+        height: 64px;
+        font-size: 1.5rem;
+    }
+
+    .envelope-to {
+        font-size: 1.7rem;
+    }
+
+    .paper-letter {
+        padding: 2rem 1.2rem;
+    }
+
+    .letter-salutation {
+        font-size: 2rem;
+        margin-bottom: 12px;
+    }
+
+    .letter-content {
+        font-size: 0.94rem;
+        line-height: 1.75;
+        padding-left: 12px;
+    }
+
+    .letter-question {
+        font-size: 1.08rem;
+        margin: 16px 0;
+    }
+
+    .proposal-choice-row {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+    }
+
+    .btn-yes {
+        width: 100%;
+        padding: 12px 20px;
+        font-size: 0.98rem;
+    }
+
+    .btn-playful-no {
+        width: auto;
+        padding: 10px 24px;
+        font-size: 0.9rem;
+    }
+
+    .celebration-card {
+        padding: 2.4rem 1.3rem;
+        border-radius: 26px;
+    }
+
+    .celebration-title {
+        font-size: 2.4rem;
+    }
+
+    .celebration-text {
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+
+    .bottom-dock {
+        bottom: max(12px, env(safe-area-inset-bottom));
+        padding: 5px 6px;
+        gap: 3px;
+        width: max-content;
+        max-width: calc(100vw - 20px);
+    }
+
+    .dock-item {
+        padding: 7px 10px;
+        font-size: 0.75rem;
+        gap: 4px;
+    }
+
+    .dock-item span.dock-label {
+        display: none;
+    }
+
+    .dock-item.active span.dock-label {
+        display: inline;
+    }
+}
+
+/* Particle animations (Heart burst, ripple, trail) */
+.particle {
+    position: absolute;
+    pointer-events: none;
+    z-index: 120;
+}
+
+.burst-particle {
+    animation: explodeParticle 1.2s cubic-bezier(0.1, 0.85, 0.3, 1) forwards;
+}
+
+@keyframes explodeParticle {
+    0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 1; }
+    100% { transform: translate(var(--tx), var(--ty)) scale(var(--s)) rotate(var(--r)); opacity: 0; }
+}
+
+.cursor-trail {
+    animation: trailFade 0.9s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+    filter: blur(0.5px);
+    z-index: 110;
+}
+
+@keyframes trailFade {
+    0% { transform: scale(1) translateY(0); opacity: 0.9; }
+    100% { transform: scale(0.2) translateY(18px) rotate(45deg); opacity: 0; }
+}
+
+.shockwave-ripple {
+    position: absolute;
+    border: 2px solid rgba(255, 42, 109, 0.7);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: rippleShock 1s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+    z-index: 105;
+}
+
+@keyframes rippleShock {
+    0% { width: 0; height: 0; top: var(--y); left: var(--x); opacity: 1; border-width: 3px; }
+    100% { width: 280px; height: 280px; top: calc(var(--y) - 140px); left: calc(var(--x) - 140px); opacity: 0; border-width: 1px; }
+}
+
+/* ========================================================
+   SCENE 5: MILLION LOVE LOOP
+   ======================================================== */
+.loop-current {
+    font-family: 'Charm', cursive;
+    font-size: clamp(1.7rem, 6vw, 2.5rem);
+    font-weight: 700;
+    color: #ff2a6d;
+    text-shadow: 0 0 15px rgba(255, 42, 109, 0.5);
+    margin: 6px 0 4px;
+    font-variant-numeric: tabular-nums;
+    word-break: break-word;
+}
+
+.loop-progress-text {
+    font-size: 0.85rem;
+    color: #ffcad4;
+    margin-bottom: 18px;
+    font-variant-numeric: tabular-nums;
+}
+
+.loop-controls {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+}
+
+.action-gold-btn.is-running {
+    background: linear-gradient(135deg, #ff2a6d, #f9a8d4);
+    color: #fff;
+}
+
+.loop-secondary-btn {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffd6e0;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: none;
+}
+
+.loop-log {
+    height: 180px;
+    overflow-y: auto;
+    text-align: left;
+    padding: 10px 14px;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.28);
+    border: 1px solid rgba(255, 105, 180, 0.2);
+    font-family: 'Sarabun', sans-serif;
+    font-size: 0.9rem;
+    color: #ffe6ee;
+    font-variant-numeric: tabular-nums;
+    -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent);
+    mask-image: linear-gradient(to bottom, #000 70%, transparent);
+}
+
+.loop-log-line {
+    padding: 2px 0;
+    animation: loopLineIn 0.25s ease-out;
+}
+
+.loop-log-line:first-child {
+    color: #ff7597;
+    font-weight: 500;
+}
+
+@keyframes loopLineIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 767px) {
+    .loop-log {
+        height: 140px;
+    }
+}
